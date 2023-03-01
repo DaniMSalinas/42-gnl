@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:37:12 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/01 23:27:09 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/01 23:48:46 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 
 char	*get_next_line(int fd);
 char	*read_file(int fd, int buffer_size);
-char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlen(const char *s);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 int		main(void);
