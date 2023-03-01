@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:37:06 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/01 23:37:12 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/01 23:46:27 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,16 @@ char	*read_file(int fd, int buffer_size)
 	ptr = (char *)malloc(sizeof(char) * buffer_size * n);
 	lectura = (char *)malloc(sizeof(char) * buffer_size * n);
 	aux = (char *)malloc(sizeof(char) * buffer_size * n);
-	read(fd, ptr, BUFFER_SIZE);
-	ft_memcpy(lectura, ptr, ft_strlen(ptr));
 	while (read(fd, ptr, BUFFER_SIZE))
 	{
-		strcpy(aux, lectura);
+		ft_memcpy(aux, lectura, ft_strlen(lectura));
 		free(lectura);
-		lectura = (char *)malloc(sizeof(char) * buffer_size * n++);
-		lectura = ft_strjoin(aux, ptr);
+		lectura = (char *)malloc(sizeof(char) * (buffer_size + 1) * n++);
+		//lectura = ft_strjoin(aux, ptr);
+		ft_memcpy(lectura, aux, ft_strlen(aux));
+		ft_memcpy(&lectura[ft_strlen(aux)], ptr, ft_strlen(ptr));
 		free(aux);
-		aux = (char *)malloc(sizeof(char) * buffer_size * n);
+		aux = (char *)malloc(sizeof(char) * (buffer_size + 1) * n);
 	}
 	return (lectura);
 }
