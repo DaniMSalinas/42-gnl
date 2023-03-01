@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:23:53 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/02/28 17:14:44 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/01 23:28:52 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 int main()
 {
     int fd;
-    char  *ptr;
-    ptr = (char *)malloc(sizeof(char));
-    fd = open("/Users/dmaldona/Documents/42local/42-gnl/textfile", O_RDONLY);
-    ptr = get_next_line(fd);
-	//printf("%s", ptr);
+    fd = open("/Users/maldonad1/Documents/GitHub/42-gnl/textfile", O_RDONLY);
+    printf("%s", get_next_line(fd));
 }
