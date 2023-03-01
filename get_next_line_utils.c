@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:37:06 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/01 23:23:36 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/01 23:37:12 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*read_file(int fd, int buffer_size)
 	lectura = (char *)malloc(sizeof(char) * buffer_size * n);
 	aux = (char *)malloc(sizeof(char) * buffer_size * n);
 	read(fd, ptr, BUFFER_SIZE);
-	strcpy(lectura, ptr);
+	ft_memcpy(lectura, ptr, ft_strlen(ptr));
 	while (read(fd, ptr, BUFFER_SIZE))
 	{
 		strcpy(aux, lectura);
