@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:37:06 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/01 23:54:31 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/03 22:16:27 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,31 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-char	*read_file(int fd, int buffer_size)
+void	*ft_bzero(void *s, size_t n)
 {
-	int		n;
-	char	*ptr;
-	char	*lectura;
-	char	*aux;
+	size_t	i;
+	char	*str;
 
-	n = 1;
-	ptr = (char *)malloc(sizeof(char) * buffer_size * n);
-	lectura = (char *)malloc(sizeof(char) * buffer_size * n);
-	while (read(fd, ptr, BUFFER_SIZE))
+	i = 0;
+	str = (char *)s;
+	i = 0;
+	while (i < n)
 	{
-		aux = (char *)malloc(sizeof(char) * buffer_size * n);
-		ft_memcpy(aux, lectura, ft_strlen(lectura));
-		free(lectura);
-		lectura = (char *)malloc(sizeof(char) * (buffer_size + 1) * n++);
-		ft_memcpy(lectura, aux, ft_strlen(aux));
-		ft_memcpy(&lectura[ft_strlen(aux)], ptr, ft_strlen(ptr));
-		free(aux);
-		free(ptr);
-		ptr = (char *)malloc(sizeof(char) * buffer_size * n);
+		str[i] = 0;
+		i++;
 	}
-	return (lectura);
+	return (str);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+
+	if (size && count && (count > SIZE_MAX / size))
+		return (NULL);
+	ptr = malloc(count * size);
+	if (!ptr)
+		return (ptr);
+	ft_bzero(ptr, size * count);
+	return (ptr);
 }
