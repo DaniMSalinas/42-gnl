@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:37:06 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/03 22:16:27 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:48:14 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,18 @@ void	*ft_calloc(size_t count, size_t size)
 		return (ptr);
 	ft_bzero(ptr, size * count);
 	return (ptr);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*s;
+
+	if (!s1 || !s2)
+		return (NULL);
+	s = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));
+	if (!s)
+		return (NULL);
+	ft_memcpy(s, s1, ft_strlen(s1));
+	ft_memcpy(&s[ft_strlen(s1)], s2, ft_strlen(s2));
+	return (s);
 }
