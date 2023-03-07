@@ -6,73 +6,64 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:36:17 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/06 21:00:53 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/07 20:12:02 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	find_nl(char *ptr, int nr)
+ssize_t	find_nl(char *ptr)
 {
-	int	i;
+	ssize_t	i;
 
 	i = 0;
-	while (i < nr)
+	while (ptr[i] != '\0')
 	{
 		if (ptr[i] == '\n')
 			return (i);
 		i++;
 	}
-	return (-1);
+	return (i);
 }
 
-char	*realloc_buffer(char *ptr, size_t l)
+char	*get_line(char *buffer, ssize_t size)
 {
-	char		*aux;
+	char	*line;
 
-	aux = (char *)ft_calloc(sizeof(char), l + 1);
-	if (!aux)
+	line = (char *)malloc(size + 1);
+	if (!line)
 		return (NULL);
-	ft_memcpy(aux, ptr, ft_strlen(ptr));
-	free(ptr);
-	return (aux);
+	line[size + 1] = '\0';
+	line = ft_memcpy(line, buffer, size + 1);
+	return (line);
 }
 
-char	*fill_buffer(int fd, char **line, char *buffer)
+char	*fill_buffer(int fd, char *buffer)
 {
-	int	nr;
-	int		nl;
-	int		n;
-	char	*ptr;
+	ssize_t		nr;
+	ssize_t		nl;
+	char		*ptr;
 
-	ptr = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1);
+	ptr = (char *)malloc(sizeof(char) * BUFFER_SIZE);
 	if (!ptr)
 		return (NULL);
-	nr = BUFFER_SIZE;
-	nl = -1;
-	n = 1;
-	while (nl == -1 && nr != 0)
+	nr = 1;
+	nl = 1;
+	while (nr != 0 && nl == nr)
 	{
-		buffer = realloc_buffer(buffer, BUFFER_SIZE * ++n);
 		nr = read(fd, ptr, BUFFER_SIZE);
-		ft_memcpy(&buffer[ft_strlen(buffer)], ptr, nr);
-		nl = find_nl(ptr, nr);
+		if (nr == -1)
+		{
+			free(ptr);
+			free(buffer);
+			return (NULL);
+		}
+		ptr[nr] = '\0';
+		nl = find_nl(ptr);
+		buffer = ft_strjoin(buffer, ptr);
 	}
-	*line = (char *)ft_calloc(sizeof(char), ft_strlen(buffer) - (nr - nl - 1) + 1);
-	if (!*line)
-		return (NULL);
-	ft_memcpy(*line, buffer, ft_strlen(buffer) - (nr - nl - 1));
-	ft_memcpy(buffer, &ptr[nl + 1], nr);
-	return (buffer);
-}
-
-char	*check_buffer(int nl, char **line, char *buffer)
-{
-	*line = (char *)ft_calloc(sizeof(char), nl + 1);
-	if (!*line)
-		return (NULL);
-	ft_memcpy(*line, buffer, nl + 1);
-	ft_memcpy(buffer, &buffer[nl + 1], ft_strlen(buffer));
+	free (ptr);
+	ptr = NULL;
 	return (buffer);
 }
 
@@ -80,16 +71,15 @@ char	*get_next_line(int fd)
 {
 	static char	*buffer;
 	char		*line;
-	int			nl;
 
-	if (!buffer)
-		buffer = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-	if (BUFFER_SIZE <= 0 || !buffer || fd < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	nl = find_nl(buffer, ft_strlen(buffer));
-	if (nl != -1)
-		buffer = check_buffer(nl, &line, buffer);
-	else
-		buffer = fill_buffer(fd, &line, buffer);
+	if (!buffer)
+		buffer = (char *)malloc(BUFFER_SIZE);
+	buffer = fill_buffer(fd, buffer);
+	if (!buffer)
+		return (NULL);
+	line = get_line(buffer, find_nl(buffer));
+	buffer = realloc_buffer(buffer, ft_strlen(buffer), ft_strlen(line));
 	return (line);
 }

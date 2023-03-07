@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:37:12 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/06 20:59:06 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:44:34 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,12 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 123
+#  define BUFFER_SIZE 329
 # endif
 
 char	*get_next_line(int fd);
-size_t	ft_strlen(const char *s);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
-void	*ft_calloc(size_t count, size_t size);
-char	*ft_strjoin(char const *s1, char const *s2);
-int		main(void);
+size_t	ft_strlen(const char *s);
+char	*realloc_buffer(char *ptr, size_t l1, size_t l2);
+char	*ft_strjoin(char *s1, char *s2);
 #endif

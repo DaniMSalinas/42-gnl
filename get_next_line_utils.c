@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:37:06 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/06 19:48:14 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/07 19:48:24 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,45 +41,38 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-void	*ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-	char	*str;
-
-	i = 0;
-	str = (char *)s;
-	i = 0;
-	while (i < n)
-	{
-		str[i] = 0;
-		i++;
-	}
-	return (str);
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	if (size && count && (count > SIZE_MAX / size))
-		return (NULL);
-	ptr = malloc(count * size);
-	if (!ptr)
-		return (ptr);
-	ft_bzero(ptr, size * count);
-	return (ptr);
-}
-
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*s;
 
 	if (!s1 || !s2)
 		return (NULL);
-	s = ft_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));
+	s = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!s)
 		return (NULL);
 	ft_memcpy(s, s1, ft_strlen(s1));
 	ft_memcpy(&s[ft_strlen(s1)], s2, ft_strlen(s2));
+	s[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	free(s1);
+	s1 = NULL;
 	return (s);
+}
+
+char	*realloc_buffer(char *ptr, size_t l1, size_t l2)
+{
+	char		*aux;
+	size_t		l;
+
+	if (l1 < l2)
+		l = l2 - l1;
+	if (l2 <= l1)
+		l = l1 - l2;	
+	aux = (char *)malloc(l + 1);
+	if (!aux)
+		return (NULL);
+	aux[l] = '\0';
+	aux = ft_memcpy(aux, &ptr[l2], l);
+	free(ptr);
+	ptr = NULL;
+	return (aux);
 }
