@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:37:06 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/08 14:27:43 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:34:22 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,31 +77,21 @@ char	*realloc_buffer(char *ptr, size_t l1, size_t l2)
 	return (aux);
 }
 
-void	*ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-	char	*str;
-
-	i = 0;
-	str = (char *)s;
-	i = 0;
-	while (i < n)
-	{
-		str[i] = 0;
-		i++;
-	}
-	return (str);
-}
-
 void	*ft_calloc(size_t count, size_t size)
 {
-	void	*ptr;
+	char	*ptr;
+	size_t	i;
 
 	if (size && count && (count > SIZE_MAX / size))
 		return (NULL);
 	ptr = malloc(count * size);
 	if (!ptr)
 		return (ptr);
-	ft_bzero(ptr, size * count);
+	i = 0;
+	while (i < size * count)
+	{
+		ptr[i] = 0;
+		i++;
+	}
 	return (ptr);
 }
