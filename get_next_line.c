@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:36:17 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/08 01:13:47 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:12:14 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ char	*get_line(char *buffer, ssize_t size)
 
 	if (ft_strlen(buffer) == 0)
 		return (NULL);
-	line = (char *)malloc(size +1);
+	line = (char *)malloc(size + 1);
 	if (!line)
 		return (NULL);
 	line[size + 1] = '\0';
 	line = ft_memcpy(line, buffer, size + 1);
+	line[ft_strlen(line)] = '\0';
 	return (line);
 }
 
@@ -46,7 +47,7 @@ char	*fill_buffer(int fd, char *buffer)
 	ssize_t		nl;
 	char		*ptr;
 
-	ptr = (char *)malloc(sizeof(char) * BUFFER_SIZE);
+	ptr = (char *)malloc(BUFFER_SIZE);
 	if (!ptr)
 		return (NULL);
 	nr = 1;
@@ -85,7 +86,12 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = get_line(buffer, find_nl(buffer));
 	if (!line)
-		return(NULL);
+	{
+		free(buffer);
+		buffer = NULL;
+		return (NULL);
+	}
+	line[ft_strlen(line)] = '\0';
 	buffer = realloc_buffer(buffer, ft_strlen(buffer), ft_strlen(line));
 	return (line);
 }
