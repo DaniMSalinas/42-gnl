@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:37:12 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/07 19:44:34 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/08 01:00:51 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 329
+#  define BUFFER_SIZE 43
 # endif
 
 char	*get_next_line(int fd);

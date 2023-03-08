@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:37:06 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/07 19:48:24 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/08 00:38:28 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*realloc_buffer(char *ptr, size_t l1, size_t l2)
 	if (l1 < l2)
 		l = l2 - l1;
 	if (l2 <= l1)
-		l = l1 - l2;	
+		l = l1 - l2;
 	aux = (char *)malloc(l + 1);
 	if (!aux)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:23:53 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/07 20:13:30 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/08 01:09:20 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	main(void)
 	char	*ptr;
 
 	n = 1;
-	limit = 2186;
-	fd = open("/Users/maldonad1/Documents/GitHub/42-gnl/files/quijote2.txt", \
+	limit = 1;
+	fd = open("/Users/maldonad1/Documents/GitHub/42-gnl/files/43_with_nl", \
 		O_RDONLY);
 	while (n <= limit)
 	{
 		ptr = get_next_line(fd);
-		printf("%s",ptr);
+		printf("%i %s", n, ptr);
 		n++;
 	}
 	return (0);
