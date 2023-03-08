@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:36:17 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/08 14:12:14 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/08 14:27:22 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,11 @@ char	*get_line(char *buffer, ssize_t size)
 
 	if (ft_strlen(buffer) == 0)
 		return (NULL);
-	line = (char *)malloc(size + 1);
+	line = (char *)ft_calloc(size + 1, sizeof(char));
 	if (!line)
 		return (NULL);
 	line[size + 1] = '\0';
 	line = ft_memcpy(line, buffer, size + 1);
-	line[ft_strlen(line)] = '\0';
 	return (line);
 }
 
@@ -47,7 +46,7 @@ char	*fill_buffer(int fd, char *buffer)
 	ssize_t		nl;
 	char		*ptr;
 
-	ptr = (char *)malloc(BUFFER_SIZE);
+	ptr = (char *)ft_calloc(BUFFER_SIZE, sizeof(char));
 	if (!ptr)
 		return (NULL);
 	nr = 1;
@@ -78,7 +77,7 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	if (!buffer)
-		buffer = (char *)malloc(BUFFER_SIZE);
+		buffer = (char *)ft_calloc(BUFFER_SIZE, sizeof(char));
 	if (!buffer)
 		return (NULL);
 	buffer = fill_buffer(fd, buffer);
@@ -91,7 +90,6 @@ char	*get_next_line(int fd)
 		buffer = NULL;
 		return (NULL);
 	}
-	line[ft_strlen(line)] = '\0';
 	buffer = realloc_buffer(buffer, ft_strlen(buffer), ft_strlen(line));
 	return (line);
 }
