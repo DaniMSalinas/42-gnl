@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:37:06 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/08 14:34:22 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:57:28 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ char	*realloc_buffer(char *ptr, size_t l1, size_t l2)
 	size_t		l;
 
 	if (l1 < l2)
-		l = l2 - l1;
+		l = l2 - l1 + 1;
 	if (l2 <= l1)
-		l = l1 - l2;
-	aux = (char *)ft_calloc(l, sizeof(char));
+		l = l1 - l2 + 1;
+	aux = (char *)ft_calloc(l + 1, sizeof(char));
 	if (!aux)
 		return (NULL);
 	aux[l] = '\0';

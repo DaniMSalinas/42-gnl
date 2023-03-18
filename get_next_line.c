@@ -6,7 +6,7 @@
 /*   By: dmaldona <dmaldona@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 12:36:17 by dmaldona          #+#    #+#             */
-/*   Updated: 2023/03/08 14:27:22 by dmaldona         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:56:07 by dmaldona         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ ssize_t	find_nl(char *ptr)
 	return (i);
 }
 
-char	*get_line(char *buffer, ssize_t size)
+char	*ft_getline(char *buffer, ssize_t size)
 {
 	char	*line;
 
 	if (ft_strlen(buffer) == 0)
 		return (NULL);
-	line = (char *)ft_calloc(size + 1, sizeof(char));
+	line = (char *)ft_calloc(size + 2, sizeof(char));
 	if (!line)
 		return (NULL);
 	line[size + 1] = '\0';
@@ -46,7 +46,7 @@ char	*fill_buffer(int fd, char *buffer)
 	ssize_t		nl;
 	char		*ptr;
 
-	ptr = (char *)ft_calloc(BUFFER_SIZE, sizeof(char));
+	ptr = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!ptr)
 		return (NULL);
 	nr = 1;
@@ -83,13 +83,14 @@ char	*get_next_line(int fd)
 	buffer = fill_buffer(fd, buffer);
 	if (!buffer)
 		return (NULL);
-	line = get_line(buffer, find_nl(buffer));
+	line = ft_getline(buffer, find_nl(buffer));
 	if (!line)
 	{
 		free(buffer);
 		buffer = NULL;
 		return (NULL);
 	}
-	buffer = realloc_buffer(buffer, ft_strlen(buffer), ft_strlen(line));
+	buffer = realloc_buffer(buffer, ft_strlen(buffer), \
+		ft_strlen(line));
 	return (line);
 }
